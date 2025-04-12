@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spice Station</title>
+    <style>
+            :root {
+      --primary: #e85a4f;         /* Warm red */
+      --secondary: #5e6472;       /* Slate gray */
+      --accent: #eaa023;          /* Golden turmeric */
+      --accent-light: #f8d49a;    /* Light turmeric */
+      --dark: #32292f;            /* Deep aubergine */
+      --light: #f7f7f2;           /* Ivory */
+      --text-dark: #32292f;       /* Deep aubergine */
+      --text-light: #f7f7f2;      /* Ivory */
+      --shadow: rgba(0, 0, 0, 0.12);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --success: #718355;         /* Cardamom green */
+    }
+    
+    /* Subtle Animated Background */
+    body {
+      background: linear-gradient(-45deg, #fff5e6, #ffe0b3, #f7f7f2, #f5cac2);
+      background-size: 400% 400%;
+      animation: gradient 25s ease infinite;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      color: var(--text-dark);
+    }
+    
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    
+    /* Icon Animation */
+    .icon {
+      justify-content: left;
+      margin-top: 20px;
+      margin-left: 20px;
+      transition: transform 0.3s ease, color 0.3s ease;
+      color: var(--primary);
+    }
+    
+    .icon:hover {
+      transform: translateX(-3px);
+      color: var(--accent);
+    }
+    
+    /* Refined Name Animation */
+    .name {
+      font-size: 72px;
+      text-align: center;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      color: var(--primary);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+      margin-bottom: 20px;
+      animation: softPulse 4s infinite ease-in-out;
+      position: relative;
+    }
+    
+    @keyframes softPulse {
+      0% {
+        transform: scale(1);
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+      }
+      50% {
+        transform: scale(1.03);
+        text-shadow: 2px 2px 12px rgba(232, 90, 79, 0.3);
+      }
+      100% {
+        transform: scale(1);
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+      }
+    }
+    
+    /* Menu Container with subtle float */
+    .menu-container {
+      text-align: center;
+      margin: 20px 0;
+      padding: 0;
+      animation: gentleFloat 8s ease-in-out infinite;
+    }
+    
+    @keyframes gentleFloat {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+    
+    .menu-title {
+      font-size: 2.5rem;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      color: var(--accent);
+      text-shadow: 1px 1px 4px var(--shadow);
+      display: inline-block;
+      padding-bottom: 10px;
+      text-align: center;
+      justify-content: center;
+      margin: 0;
+      padding: 10px 0;
+      position: relative;
+    }
+    
+    .menu-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 25%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      animation: lineExpand 3s infinite ease-in-out;
+    }
+    
+    @keyframes lineExpand {
+      0% {
+        width: 10%;
+        left: 45%;
+        opacity: 0.7;
+      }
+      50% {
+        width: 50%;
+        left: 25%;
+        opacity: 1;
+      }
+      100% {
+        width: 10%;
+        left: 45%;
+        opacity: 0.7;
+      }
+    }
+    
+    /* Enhanced Search Container */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+      padding: 0;
+    }
+    
+    .search-box {
+      width: 300px;
+      border: 2px solid var(--accent-light);
+      border-radius: 25px 0 0 25px;
+      outline: none;
+      margin: 0;
+      padding: 10px 15px;
+      height: 20px;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+    
+    .search-box:focus {
+      width: 350px;
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(234, 160, 35, 0.3);
+    }
+    
+    .searchBtn {
+      height: 44px;
+      width: 80px;
+      border: none;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+    
+    .searchBtn:hover {
+      background-color: var(--primary);
+      transform: translateX(2px);
+    }
+  #noResults {
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+    
+    /* Refined Food Items */
+    .food-items-row, .food-item-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px;
+    }
+    
+    .food-item, .food {
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 6px 12px var(--shadow);
+      margin: 1rem;
+      padding: 1.5rem;
+      width: 220px;
+      text-align: center;
+      height: 58vh;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+    }
+    
+    .food-item::before, .food::before {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      width: 50%;
+      height: 50%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.6s;
+      z-index: 1;
+    }
+    
+    .food-item:hover::before, .food:hover::before {
+      top: 100%;
+      left: 100%;
+      animation: subtleShine 1.8s;
+    }
+    
+    @keyframes subtleShine {
+      0% {
+        top: -100%;
+        left: -100%;
+        opacity: 0.5;
+      }
+      100% {
+        top: 100%;
+        left: 100%;
+        opacity: 0.8;
+      }
+    }
+    
+    .food-item:hover, .food:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+    }
+    
+    .food-item img, .food img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      transition: transform 0.5s ease;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .food-item:hover img, .food:hover img {
+      transform: scale(1.08);
+    }
+    
+    .food-item h2, .food h2 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      transition: all 0.3s ease;
+    }
+    
+    .food-item:hover h2, .food:hover h2 {
+      transform: scale(1.05);
+      color: var(--accent);
+    }
+    
+    .food-item p, .food p {
+      font-size: 1rem;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+      line-height: 1.4;
+    }
+    
+    .price {
+      font-weight: bold;
+      color: var(--primary);
+      font-size: 1.2rem;
+      animation: subtleColorChange 6s infinite alternate;
+    }
+    
+    @keyframes subtleColorChange {
+      0% {
+        color: var(--primary);
+      }
+      50% {
+        color: var(--accent);
+      }
+      100% {
+        color: var(--primary);
+      }
+    }
+    
+    /* Enhanced Order Button */
+    .order-now-btn {
+      background-color: var(--primary);
+      color: white;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .order-now-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background: var(--accent);
+      transition: all 0.3s ease;
+      z-index: -1;
+      border-radius: 25px;
+    }
+    
+    .order-now-btn:hover::before {
+      width: 100%;
+    }
+    
+    .order-now-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .order-now-btn:active {
+      transform: scale(0.98);
+    }
+    
+    /* Refined Cart Button */
+    .cart-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--primary), #d04a3f);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: gentleBounce 3s infinite ease-in-out;
+    }
+    
+    @keyframes gentleBounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+    
+    .cart-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 18px rgba(232, 90, 79, 0.4);
+      background: linear-gradient(135deg, #ea6056, #d04a3f);
+    }
+    
+    .cart-btn span {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .cart-btn::before {
+      content: "🛒";
+      font-size: 26px;
+      margin-right: 5px;
+      animation: gentleSpin 5s infinite ease-in-out;
+      display: inline-block;
+    }
+    
+    @keyframes gentleSpin {
+      0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(8deg);
+      }
+      75% {
+        transform: rotate(-8deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+    
+    /* Overlay with refined fade effect */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      display: none;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    #overlay.active {
+      opacity: 1;
+    }
+    
+    /* Refined Cart Popup */
+    .cart-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      background: linear-gradient(135deg, var(--light), #ffffff);
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      height: auto;
+      max-height: 80vh;
+      border-radius: 20px;
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: none;
+      text-align: center;
+      opacity: 0;
+      overflow-y: auto;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(234, 160, 35, 0.2);
+    }
+    
+    .cart-popup.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    .cart-popup h2 {
+      margin: 0 0 20px 0;
+      padding: 10px 0;
+      color: var(--primary);
+      font-size: 28px;
+      border-bottom: 2px solid var(--accent-light);
+      position: relative;
+    }
+    
+    .cart-popup h2::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      animation: lineGrow 2.5s forwards;
+    }
+    
+    @keyframes lineGrow {
+      to {
+        width: 100%;
+      }
+    }
+    
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 0;
+      padding: 10px 15px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+    
+    .cart-item:hover {
+      transform: translateX(3px);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      border-left: 3px solid var(--accent);
+    }
+    
+    .cart-total {
+      font-weight: bold;
+      text-align: right;
+      margin: 20px 0;
+      font-size: 22px;
+      color: var(--primary);
+      animation: softPulse 3s infinite;
+    }
+    
+    #cartItems {
+      max-height: 250px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+    }
+    
+    #cartItems::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    #cartItems::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 10px;
+    }
+    
+    #cartItems::-webkit-scrollbar-thumb {
+      background: var(--accent-light);
+      border-radius: 10px;
+    }
+    
+    #cartItems::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+    
+    .close-btn, .delivery-btn {
+      display: inline-block;
+      margin: 15px 10px;
+      padding: 12px 28px;
+      border: none;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .close-btn {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .delivery-btn {
+      background: var(--accent);
+      color: var(--text-dark);
+    }
+    
+    .close-btn::before, .delivery-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+      z-index: -1;
+    }
+    
+    .close-btn:hover::before, .delivery-btn:hover::before {
+      left: 100%;
+      animation: subtleShimmer 2s infinite;
+    }
+    
+    @keyframes subtleShimmer {
+      0% {
+        left: -100%;
+        opacity: 0.5;
+      }
+      100% {
+        left: 100%;
+        opacity: 0.8;
+      }
+    }
+    
+    .close-btn:hover, .delivery-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .delivery-btn a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    /* Refined Category Headers */
+    .donuts, .cupcakes, .cakes, .cookies, .Snacks, .Cakes, .Cookies {
+      padding: 20px 0;
+      color: var(--dark);
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+      position: relative;
+      margin: 40px 0 20px 0;
+      transition: color 0.3s ease;
+    }
+    
+    .donuts::before, .cupcakes::before, .cakes::before, .cookies::before,
+    .Snacks::before, .Cakes::before, .Cookies::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
+      transition: width 0.5s ease;
+    }
+    
+    .donuts:hover::before, .cupcakes:hover::before, .cakes:hover::before, .cookies:hover::before,
+    .Snacks:hover::before, .Cakes:hover::before, .Cookies:hover::before {
+      width: 25%;
+    }
+    
+    .donuts:hover, .cupcakes:hover, .cakes:hover, .cookies:hover,
+    .Snacks:hover, .Cakes:hover, .Cookies:hover {
+      color: var(--primary);
+    }
+    
+    /* Refined Responsiveness */
+    @media (max-width: 768px) {
+      .name {
+        font-size: 40px;
+      }
+      
+      .food-items-row, .food-item-row {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .food-item, .food {
+        width: 80%;
+        height: auto;
+      }
+      
+      .search-box {
+        width: 200px;
+      }
+      
+      .cart-popup {
+        width: 95%;
+        padding: 15px;
+      }
+      
+      .cart-popup h2 {
+        font-size: 1.5rem;
+      }
+      
+      .close-btn, .delivery-btn {
+        padding: 10px 15px;
+        margin: 5px;
+      }
+      
+      .cart-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 12px;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+    
+    /* Refined Loading Animation */
+    @keyframes smoothFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in {
+      animation: smoothFadeIn 1.2s ease forwards;
+    }
+    
+    /* Add fade-in class to elements with staggered delays */
+    .name, .menu-container, .search-container, .food-items-row, .food-item-row, 
+    .donuts, .cupcakes, .cakes, .cookies, .Snacks, .Cakes, .Cookies {
+      opacity: 0;
+      animation: smoothFadeIn 1.2s ease forwards;
+    }
+    
+    .name { animation-delay: 0.2s; }
+    .menu-container { animation-delay: 0.4s; }
+    .search-container { animation-delay: 0.6s; }
+    .donuts, .cupcakes, .cakes, .cookies, .Snacks, .Cakes, .Cookies { animation-delay: 0.8s; }
+    .food-items-row, .food-item-row { animation-delay: 1s; }
+    
+    /* Subtle Button Press Animation */
+    @keyframes subtleButtonPress {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.97); }
+      100% { transform: scale(1); }
+    }
+    
+    button:active {
+      animation: subtleButtonPress 0.3s ease;
+    }
+    
+    /* Add subtle hover effects to links */
+    a {
+      transition: color 0.3s ease;
+    }
+    
+    a:hover {
+      color: var(--accent);
+    }
+    </style>
+</head>
+<body>
+    <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+        </svg>
+    </div>
+
+    <div class="name">
+        <p class="head">Spice Station</p>
+    </div>
+
+    <div class="menu-container">
+        <h6 class="menu-title">MENU</h6>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search..." class="search-box">
+            <button class="searchBtn">Search</button>
+        </div>
+        <div id="noResults" style="display:none; text-align:center; padding:20px;">
+          <img src="https://cdn-icons-png.flaticon.com/512/7486/7486751.png" alt="Not found" style="width:100px; opacity:0.7;">
+          <h3 style="color:gray;">Oops! Sorry, that item is not available 😔</h3>
+        </div>
+        
+    </div>
+
+    <h1 class="Snacks">Starters</h1>
+    <div class="food-items-row">
+        <div class="food-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh0OdSbP22bKHaTHure3XMuACB00zywO29bso9nASNSXBTMwe2P_SMM6-hKoZXf-8Co0U&usqp=CAU" alt="Cake donut">
+            <h2>Dhokla</h2>
+            <p>Light,Fluffy Texture nd Savoury Flavour.</p>
+            <p class="price">Rs.180</p>
+            <button class="order-now-btn" data-name="Dhokla" data-price="180">Order Now</button>
+        </div>
+        <div class="food-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBHkdsDWl8eFUQ0xARNZOK0OMSR7lRw9IH5l4S4q7utQcmw251p-VGY1F9dINQDfJ-DwU&usqp=CAU" alt="Doughnut holes">
+            <h2>Kachori</h2>
+            <p>Made with ground dal sauteed along with spices and filled into a cover of maida.</p>
+            <p class="price">Rs.80</p>
+            <button class="order-now-btn"data-name="Kachori" data-price="80">Order Now</button>
+        </div>
+        <div class="food-item">
+            <img src="https://static.toiimg.com/thumb/52416693.cms?width=1200&height=900" alt="Jelly donut">
+            <h2>Pav Bhaji</h2>
+            <p>Savor Mumbai's favorite: rich, spicy Pav Bhaji with buttery pav buns.</p>
+            <p class="price">Rs.120</p>
+            <button class="order-now-btn"data-name="Pav Bhaji" data-price="120">Order Now</button>
+        </div>
+        <div class="food-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO8BMUbawp5f_YrTHstPg9Rn0C5gjs5exjI6UWKF5e6VIo3uORKdPwBiDMAI3l2hOkIK8&usqp=CAU" alt="Cider donut">
+            <h2>Pakora</h2>
+            <p>Crispy, golden pakodas bursting with flavor—perfect for any snack craving.</p>
+            <p class="price">Rs.120</p>
+            <button class="order-now-btn"data-name="Pakora" data-price="120">Order Now</button>
+            </div></div>
+    </div>
+
+    <h1 class="cupcakes" style="color: black;">Beverages</h1>
+    <div class="food-item-row">
+        <div class="food-item">
+            <img src="https://assets.bonappetit.com/photos/60ef61ef7009278ef6bad579/16:9/w_2560%2Cc_limit/Lassi.jpg" alt="Cookies 'n' Cream cupcake">
+            <h2>Lassi</h2>
+            <p>Cool, creamy, and refreshing our lassi is the perfect blend of yogurt and flavor.</p>
+            <p class="price">Rs.50</p>
+            <button class="order-now-btn" data-name="Lassi" data-price="50">Order Now</button>
+        </div>
+        <div class="food-item">
+            <img src="https://cdn.tasteatlas.com//images/ingredients/bb6cfc8fa6b64ee7a96e38f95c95f6a6.jpg?w=905&h=510" alt="Coffee cupcake">
+            <h2>Nimbu Pani</h2>
+            <p>This drink made from fresh lemon juice, sugar, and a pinch of salt perfectly tangy.</p>
+            <p class="price">Rs.30</p>
+            <button class="order-now-btn"data-name="Nimbu Pani" data-price="30">Order Now</button>
+        </div>
+        <div class="food-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZZIOve2cxx06e-xkbOaxrxNekJmIqWUixrA&s" alt="Banana cupcake">
+            <h2>Chai</h2>
+            <p>Hot, spicy, our masala chai will tranport you to a serene land of utter bliss.</p>
+            <p class="price">Rs.20</p>
+            <button class="order-now-btn"data-name="Chai" data-price="20">Order Now</button>
+        </div>
+        <div class="food-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7JUAF9VWmKzM448G1M_MwyG1gFTH1qwzBdA&s" alt="Caramel cupcake">
+            <h2>Thandai</h2>
+            <p>Refreshing and aromatic our thandai blends spices, nuts, and milk.</p>
+            <p class="price">Rs.100</p>
+            <button class="order-now-btn"data-name="Thandai" data-price="100">Order Now</button>
+        </div></div>
+    </div>
+
+    <h1 class="Cakes">Main Course</h1>
+    <div class="food-item-row">
+        <div class="food">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT27S0PNgWc3tO-KKwzorAlXYhmE6nHFQSXLA&s" alt="Choco Truffle Cake">
+            <h2>Kadhai Paneer</h2>
+            <p>A flavorful dish of paneer in a spiced tomato and bell pepper gravy garnished with fresh herbs.</p>
+            <p class="price">Rs.350</p>
+            <button class="order-now-btn" data-name="Kadhai Paneer" data-price="350">Order Now</button>
+        </div>
+        <div class="food">
+            <img src="https://static.toiimg.com/thumb/62636795.cms?width=573&height=430" alt="Cheese Cake">
+            <h2>Dal Makhani</h2>
+            <p>A creamy, rich dish of black lentils and kidney beans, cooked slowly with spice and butter.</p>
+            <p class="price">Rs.200</p>
+            <button class="order-now-btn"data-name="Dal Makhani" data-price="200">Order Now</button>
+        </div>
+        <div class="food">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnAQryV6_l0MKf8rBfUE1D3NhwyfjtSHvNlw&s" alt="Lemon Cake">
+            <h2>Matar Paneer</h2>
+            <p>North Indian dish consisting of peas and paneer in a tomato-based sauce, spiced with garam masala.</p>
+            <p class="price">Rs.250</p>
+            <button class="order-now-btn"data-name="Matar Paneer" data-price="250">Order Now</button>
+        </div>
+        <div class="food">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMMqI7yk4cleFh5RPHKQCF6M0gHox7iYaGhA&s" alt="Caramel Cake">
+            <h2>Malai Kofta</h2>
+            <p>It features deep-fried dumplings made of paneer and potatoes in a rich, creamy tomato sauce.</p>
+            <p class="price">Rs.270</p>
+            <button class="order-now-btn"data-name="Malai Kofta" data-price="270">Order Now</button>
+        </div>
+    </div>
+
+    <h1 class="Cookies">Breads</h1>
+    <div class="food-item-row">
+        <div class="food">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT27S0PNgWc3tO-KKwzorAlXYhmE6nHFQSXLA&s" alt="Butter Naan">
+            <h2>Butter Naan</h2>
+            <p>Butter Naan is a soft, fluffy flatbread brushed with melted butter.</p>
+            <p class="price">Rs.50</p>
+            <button class="order-now-btn" data-name="Butter Naan" data-price="50">Order Now</button>
+        </div>
+        <div class="food">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI1R3gR-iGtpRH9peLevOmMyuK78vyUHF_q8WAAumccQMbQeVEafeE8w835VRhkWbqxTE&usqp=CAU" alt="Tandoori roti">
+            <h2>Tandoori Roti</h2>
+            <p>Tandoori Roti is a whole wheat flatbread baked in a clay oven, offering a smoky.</p>
+            <p class="price">Rs.30</p>
+            <button class="order-now-btn"data-name="Tandoori Roti" data-price="30">Order Now</button>
+        </div>
+        <div class="food">
+            <img src="https://www.livehindustan.com/lh-img/uploadimage/library/2023/04/21/16_9/16_9_6/missi_roti_1682051883.jpg" alt="Punjabi Missi">
+            <h2>Punjabi Missi</h2>
+            <p>A flavorful flatbread made from a mix of gram flour and wheat flour.</p>
+            <p class="price">Rs.40</p>
+            <button class="order-now-btn"data-name="Punjabi Missi" data-price="40">Order Now</button>
+        </div>
+        <div class="food">
+            <img src="https://dukaan.b-cdn.net/700x700/webp/4407668/79e704c5-4456-4b23-a5c8-78365b85885d/1621768252682-152d44e4-1c21-407d-9c58-5c7629326b95.jpeg" alt="Tawa Roti">
+            <h2>Tawa Roti</h2>
+            <p>Tawa Roti is a soft, unleavened flatbread cooked on a griddle.</p>
+            <p class="price">Rs.15</p>
+            <button class="order-now-btn"data-name="Tawa Roti" data-price="15">Order Now</button>
+        </div>
+    </div>
+
+    <!-- Cart Button -->
+    <button class="cart-btn" id="cartBtn">
+        <span style="font-size:24 px;"></span>
+    </button>
+
+    <!-- Cart Popup -->
+    <div class="overlay" id="overlay"></div>
+    <div class="cart-popup" id="cartPopup">
+        <h2>Your Cart</h2>
+        <div id="cartItems"></div>
+        <div class="cart-total" id="cartTotal">Total: Rs.0</div>
+        <button class="close-btn" id="closeCart">Close</button>
+        <button class="delivery-btn" id="closeCart"><a href="delivery_page.html">Go for delivery</a></button>
+    </div>
+    <script>
+      // SEARCH FUNCTIONALITY
+      function searchMenu() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const allHeadings = document.querySelectorAll('.Snacks, .cupcakes, .Cakes, .Cookies');
+        const allSections = document.querySelectorAll('.food-item-row, .food-items-row');
+        const noResultsDiv = document.getElementById('noResults');
+        let foundAny = false;
+    
+        allSections.forEach((section, index) => {
+          const foods = section.querySelectorAll('.food, .food-item');
+          let foundInSection = false;
+    
+          foods.forEach(food => {
+            const itemName = food.querySelector('h2')?.textContent.toLowerCase();
+            if (itemName && itemName.includes(query)) {
+              food.style.display = 'block';
+              foundInSection = true;
+              foundAny = true;
+            } else {
+              food.style.display = 'none';
+            }
+          });
+    
+          // Show/hide the heading
+          if (allHeadings[index]) {
+            allHeadings[index].style.display = foundInSection ? 'block' : 'none';
+          }
+    
+          // Show/hide the section
+          section.style.display = foundInSection ? 'flex' : 'none';
+        });
+    
+        // Show/hide "Oops" message
+        noResultsDiv.style.display = (!foundAny && query.trim() !== '') ? 'block' : 'none';
+      }
+    
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("searchInput").addEventListener("input", searchMenu);
+    
+        // CART FUNCTIONALITY
+        const loadCart = () => JSON.parse(localStorage.getItem("cart")) || [];
+    
+        const saveCart = (cart) => {
+          localStorage.setItem("cart", JSON.stringify(cart));
+        };
+    
+        const updateCartUI = () => {
+          const cart = loadCart();
+          const cartItemsContainer = document.getElementById('cartItems');
+          const cartTotal = document.getElementById('cartTotal');
+          const cartTotalPrice = document.getElementById('cartTotalPrice');
+    
+          cartItemsContainer.innerHTML = '';
+          let total = 0;
+    
+          cart.forEach((item, index) => {
+            total += item.price;
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cart-item';
+            itemElement.innerHTML = `
+              <span>${item.name} - Rs.${item.price}</span>
+              <button onclick="removeFromCart(${index})">Remove</button>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+          });
+    
+          cartTotal.innerText = `Total: Rs.${total}`;
+          cartTotalPrice.innerText = total;
+        };
+    
+        window.removeFromCart = (index) => {
+          const cart = loadCart();
+          cart.splice(index, 1);
+          saveCart(cart);
+          updateCartUI();
+        };
+    
+        const addToCart = (name, price) => {
+          const cart = loadCart();
+          cart.push({ name, price });
+          saveCart(cart);
+          updateCartUI();
+          alert(`${name} added to cart!`);
+        };
+    
+        const openCart = () => {
+          document.getElementById('cartPopup').style.display = 'block';
+          document.getElementById('overlay').style.display = 'block';
+          updateCartUI();
+        };
+    
+        const closeCart = () => {
+          document.getElementById('cartPopup').style.display = 'none';
+          document.getElementById('overlay').style.display = 'none';
+        };
+    
+        document.getElementById("closeCart").addEventListener("click", closeCart);
+        document.getElementById("overlay").addEventListener("click", closeCart);
+        document.getElementById("goForDelivery").addEventListener("click", closeCart);
+        document.getElementById("cartBtn").addEventListener("click", openCart);
+    
+        // Add-to-cart button functionality
+        document.querySelectorAll('.order-now-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const name = button.getAttribute('data-name');
+            const price = parseInt(button.getAttribute('data-price'), 10);
+            addToCart(name, price);
+          });
+        });
+    
+        // Initialize cart on page load
+        updateCartUI();
+      });
+    
+      // This can be used globally if needed
+      function showCartPopup() {
+        document.getElementById("cartPopup").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+      }
+    </script>    
+</body>
+</html>

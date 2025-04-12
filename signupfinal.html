@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Migrate - Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: rgba(198, 182, 92, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .signup-container {
+            width: 90%;
+            max-width: 1100px;
+            min-height: 600px;
+            background-color: rgba(40, 38, 37, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 30px 50px;
+            border-bottom: 1px solid rgba(198, 182, 92, 0.3);
+        }
+
+        .logo-container {
+            position: relative;
+            margin-right: 30px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgb(198, 182, 92);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(198, 182, 92, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(198, 182, 92, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(198, 182, 92, 0);
+            }
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .brand-name {
+            font-size: 3.5rem;
+            color: rgb(198, 182, 92);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-left: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: shimmer 3s infinite;
+            background: linear-gradient(90deg, rgb(198, 182, 92) 0%, #fff8c9 50%, rgb(198, 182, 92) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .content {
+            display: flex;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .tagline-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 50px;
+        }
+
+        .tagline {
+            color: rgb(198, 182, 92);
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            animation: slideInLeft 1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .signup-benefits {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1.5s;
+            border: 1px solid rgba(198, 182, 92, 0.3);
+        }
+
+        .benefits-title {
+            color: rgb(198, 182, 92);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefit-item {
+            color: white;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .benefit-icon {
+            color: rgb(198, 182, 92);
+            margin-right: 10px;
+        }
+
+        .signup-form-container {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: slideInRight 1s ease-out forwards;
+            animation-delay: 0.8s;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .signup-form {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .signup-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .signup-title::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: rgb(198, 182, 92);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            padding-left: 50px;
+        }
+
+        .input-field:focus {
+            box-shadow: 0 0 10px rgba(198, 182, 92, 0.8);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+        }
+
+        .password-strength {
+            height: 5px;
+            background: #ddd;
+            border-radius: 5px;
+            margin-top: 5px;
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .password-match {
+            font-size: 0.8rem;
+            color: white;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 30px;
+            border: none;
+            background: rgb(198, 182, 92);
+            color: #333;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(198, 182, 92, 0.4);
+        }
+
+        .signup-btn:hover {
+            background: #d8c978;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(198, 182, 92, 0.6);
+        }
+
+        .signup-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            color: white;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .login-link a {
+            color: rgb(198, 182, 92);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+            color: #d8c978;
+        }
+
+        @media (max-width: 1024px) {
+            .signup-container {
+                width: 95%;
+            }
+            
+            .brand-name {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .logo-container {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .brand-name {
+                margin-left: 0;
+                font-size: 2.2rem;
+            }
+            
+            .tagline-container {
+                padding-right: 0;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            
+            .tagline {
+                font-size: 2rem;
+            }
+            
+            .signup-form-container {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="signup-container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Meal Migrate Logo" class="logo">
+            </div>
+            <div class="brand-name">MEAL MIGRATE</div>
+        </div>
+        
+        <div class="content">
+            <div class="tagline-container">
+                <div class="tagline">
+                    <p>"YOUR HUNGER,</p>
+                    <p>OUR MISSION!"</p>
+                </div>
+                
+                <div class="signup-benefits">
+                    <h3 class="benefits-title">Join Our Community</h3>
+                    <ul class="benefits-list">
+                        <li class="benefit-item">
+                            <i class="fas fa-check-circle benefit-icon"></i>
+                            <span>Fast delivery to your doorstep</span>
+                        </li>
+                        <li class="benefit-item">
+                            <i class="fas fa-check-circle benefit-icon"></i>
+                            <span>Exclusive deals and discounts</span>
+                        </li>
+                        <li class="benefit-item">
+                            <i class="fas fa-check-circle benefit-icon"></i>
+                            <span>Save your favorite restaurants</span>
+                        </li>
+                        <li class="benefit-item">
+                            <i class="fas fa-check-circle benefit-icon"></i>
+                            <span>Track your orders in real-time</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="signup-form-container">
+                <div class="signup-form">
+                    <h1 class="signup-title">SIGN UP</h1>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="fullname" class="input-field" placeholder="Full Name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" class="input-field" placeholder="Email ID" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" class="input-field" placeholder="Password" required>
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-check-circle input-icon"></i>
+                        <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm Password" required>
+                        <div class="password-match" id="passwordMatch"></div>
+                    </div>
+                    
+                    <a href="login.html">
+                        <button type="button" class="signup-btn" id="signupBtn">
+                            <i class="fas fa-user-plus"></i> SIGN UP
+                        </button>
+                    </a>
+                    
+                    <p class="login-link">Already have an account? <a href="login.html">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        document.addEventListener('DOMContentLoaded'), function() {
+            const particlesContainer = document.getElementById('particles');
+            const numberOfParticles = 30;
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 5 + 3;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.left = ${posX}%;
+                particle.style.top = ${posY}%;
+                particle.style.width = ${size}px;
+                particle.style.height = ${size}px;
+                particle.style.animationDuration = ${duration}s;
+                particle.style.animationDelay = ${delay}s;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Password strength meter
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+            const passwordStrength = document.querySelector('.password-strength');
+            const passwordMatch = document.getElementById('passwordMatch');
+            
+            passwordInput.addEventListener('focus', function() {
+                passwordStrength.style.display = 'block';
+            });
+            
+            passwordInput.addEventListener('input', function() {
+                const value = passwordInput.value;
+                let strength = 0;
+                
+                if (value.length >= 8) strength += 25;
+                if (/[A-Z]/.test(value)) strength += 25;
+                if (/[0-9]/.test(value)) strength += 25;
+                if (/[^A-Za-z0-9]/.test(value)) strength += 25;
+                
+                passwordStrengthBar.style.width = ${strength}%;
+                
+                if (strength <= 25) {
+                    passwordStrengthBar.style.backgroundColor = '#ff4d4d';
+                } else if (strength <= 50) {
+                    passwordStrengthBar.style.backgroundColor = '#ffa64d';
+                } else if (strength <= 75) {
+                    passwordStrengthBar.style.backgroundColor = '#ffff4d';
+                } else {
+                    passwordStrengthBar.style.backgroundColor = '#4dff4d';
+                }
+                
+                // Check if passwords match
+                if (confirmPasswordInput.value !== '') {
+                    checkPasswordMatch();
+                }
+            };
